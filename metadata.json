@@ -1,0 +1,6 @@
+{
+  "name": "Raj-DTE Sarthi - Rajasthan Technical Education AI Assistant",
+  "description": "Bilingual AI-powered student assistance chatbot and knowledge portal for Department of Technical Education (DTE), Government of Rajasthan. Official admissions, colleges, diploma courses, syllabus, fees, scholarships, and academic guidelines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
