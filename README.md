@@ -10,7 +10,7 @@ The application follows an **information-first and source-grounded approach**, w
 
 ## 🌐 Live Application
 
-**Live Website:** [DTE Rajasthan Student Assist](YOUR_VERCEL_DEPLOYMENT_URL)
+**Live Website:** [DTE Rajasthan Student Assist](https://rajasthan-dte-assist.vercel.app/)
 
 **GitHub Repository:** [Gokulaharini/dte-rajasthan-student-assist](https://github.com/Gokulaharini/dte-rajasthan-student-assist)
 
