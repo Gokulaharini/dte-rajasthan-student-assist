@@ -1,4 +1,4 @@
-import { College, CircularDocument, KnowledgeItem, Course, StudentService } from '../types';
+import type { College, CircularDocument, KnowledgeItem, Course, StudentService } from '../types.ts';
 
 export const OFFICIAL_SOURCES_META = {
   authority: "Directorate of Technical Education (DTE), Government of Rajasthan",

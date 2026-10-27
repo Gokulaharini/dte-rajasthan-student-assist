@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import type { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,8 +12,8 @@ import {
   DTE_STUDENT_SERVICES,
   OFFICIAL_CIRCULARS,
   OFFICIAL_SOURCES_META,
-} from './src/data/dteKnowledgeBase.js';
-import {
+} from './src/data/dteKnowledgeBase.ts';
+import type {
   DocumentExtractionResult,
   SourceRefreshStatus,
   College,
@@ -20,7 +21,7 @@ import {
   StudentService,
   KnowledgeItem,
   Language,
-} from './src/types.js';
+} from './src/types.ts';
 
 dotenv.config();
 
@@ -999,9 +1000,37 @@ export function findBestDeterministicAnswer(
 // Server Setup
 // -------------------------------------------------------------
 
+function getPort(): number {
+  const portArgIndex = process.argv.indexOf('--port');
+  if (portArgIndex !== -1 && process.argv[portArgIndex + 1]) {
+    const parsed = Number(process.argv[portArgIndex + 1]);
+    if (!isNaN(parsed) && parsed > 0) return parsed;
+  }
+  if (process.env.APP_PORT) {
+    const parsed = Number(process.env.APP_PORT);
+    if (!isNaN(parsed) && parsed > 0) return parsed;
+  }
+  // Cloud Run sets PORT=8080 for Nginx ingress reverse-proxy.
+  // Express/Vite app must bind to port 3000 (proxied by Nginx). Never bind to 8080.
+  if (process.env.PORT && process.env.PORT !== '8080') {
+    const parsed = Number(process.env.PORT);
+    if (!isNaN(parsed) && parsed > 0) return parsed;
+  }
+  return 3000;
+}
+
+function getHost(): string {
+  const hostArgIndex = process.argv.indexOf('--host');
+  if (hostArgIndex !== -1 && process.argv[hostArgIndex + 1]) {
+    return process.argv[hostArgIndex + 1];
+  }
+  return '0.0.0.0';
+}
+
 async function startServer() {
   const app = express();
-  const PORT = Number(process.env.PORT) || 3000;
+  const PORT = getPort();
+  const HOST = getHost();
 
   app.use(express.json({ limit: '10mb' }));
 
@@ -1427,8 +1456,8 @@ Extract structured student-focused details into strictly valid JSON according to
     app.use(vite.middlewares);
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`DTE Rajasthan Student Assist Server active on port ${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`DTE Rajasthan Student Assist Server active on http://${HOST}:${PORT}`);
   });
 }
 
