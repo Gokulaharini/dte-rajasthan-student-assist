@@ -20,6 +20,38 @@ export interface ChatMessage {
   isDeterministicFallback?: boolean;
   warnings?: string[];
   suggestedFollowUps?: string[];
+  isClarification?: boolean;
+  isOutdated?: boolean;
+  category?: 'COLLEGE_INFO' | 'COURSE_INFO' | 'ADMISSION' | 'FEES_SCHOLARSHIPS' | 'EXAMS_SERVICES' | 'OUT_OF_SCOPE' | 'UNVERIFIED' | 'GENERAL';
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  nameHindi: string;
+  code?: string;
+  duration: string;
+  durationHindi: string;
+  eligibility: string;
+  eligibilityHindi: string;
+  type: 'Engineering' | 'Non-Engineering';
+  overview: string;
+  overviewHindi: string;
+  offeringColleges: string[];
+}
+
+export interface StudentService {
+  id: string;
+  name: string;
+  nameHindi: string;
+  category: 'Admissions' | 'Examinations' | 'Welfare' | 'Verification' | 'Hostel' | 'Grievance';
+  description: string;
+  descriptionHindi: string;
+  procedure: string;
+  procedureHindi: string;
+  portalOrOffice: string;
+  helpline?: string;
+  session?: string;
 }
 
 export interface College {
